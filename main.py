@@ -1,14 +1,12 @@
 # TODO: USE JS FUNCTION hozNextImage() to move pages, instead of using selenium to push buttons
 
 import base64
-#import chromedriver_autoinstaller
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from utils import WaitTilAvaliable, FilterPath
 import downloader
 from typing import Callable
-#chromepath = chromedriver_autoinstaller.install()
 
 from time import sleep
 import fitz
@@ -19,6 +17,20 @@ import sys
 
 
 def download_volume(url: str, update_function: Callable=None) -> str:
+    """
+    Downloads a manga volume from the given URL.
+    Args:
+        url (str): The URL of the manga volume to download.
+        update_function (Callable, optional): A callback function to update the progress. Defaults to None.
+    Returns:
+        str: The title of the downloaded manga volume.
+    Notes:
+        - The quality of the downloaded images is set to "high".
+        - The reading mode is set to "horizontal".
+        - Cookies are set to bypass certain website restrictions.
+        - The function uses Selenium WebDriver to automate the download process.
+        - The downloaded volume is saved in a directory named after the manga title.
+    """
 
     # WARNING: Quality can be low, medium, high. This is put straight into the cookies so it might break if any other value is put in idk im not bothered to test it 
     quality = "high"

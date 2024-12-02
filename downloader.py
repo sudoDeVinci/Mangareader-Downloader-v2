@@ -2,13 +2,37 @@ import fitz
 import base64
 from utils import ElementExists
 from selenium.webdriver.common.by import By
+from selenium.webdriver import Remote
+from selenium.webdriver.remote.webelement import WebElement
 from time import sleep
-import selenium
-import os
+from os import mkdir
+from typing import Optional, Callable
 
 valiad_check_chars = [b'`\x82', b'\xff\xd9', b"\x00\x00", b"ds", b"\xd9\x00"]
 
-def DownloadVolume(driver, next_btn, rating_panel_path, foldername, next_btn_path, update_function=None, download_pdf=False):
+def DownloadVolume(
+    driver: Remote,
+    next_btn: WebElement,
+    rating_panel_path: str,
+    foldername: str, 
+    next_btn_path: str,
+    update_function: Optional[Callable[[float], None]] = None,
+    download_pdf: bool = False
+) -> None:
+    """
+    Downloads all pages of a manga volume using a web driver.
+    Args:
+        driver (selenium.webdriver): The web driver used to navigate the manga website.
+        next_btn (selenium.webdriver.remote.webelement.WebElement): The button element to navigate to the next page.
+        rating_panel_path (str): The CSS selector path to the rating panel.
+        foldername (str): The name of the folder where images will be saved.
+        next_btn_path (str): The CSS selector path to the next button.
+        update_function (callable, optional): A function to call with the download progress percentage. Defaults to None.
+        download_pdf (bool, optional): Whether to download each page as a PDF. Defaults to False.
+    
+    Returns:
+        None
+    """
 
     page = 1
 
@@ -21,7 +45,7 @@ def DownloadVolume(driver, next_btn, rating_panel_path, foldername, next_btn_pat
     
     if download_pdf:
         try:
-            os.mkdir(f"temp/{foldername}_PDF")
+            mkdir(f"temp/{foldername}_PDF")
         except FileExistsError:
             pass
 

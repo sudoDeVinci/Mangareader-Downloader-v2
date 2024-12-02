@@ -1,12 +1,10 @@
 import base64
-# import chromedriver_autoinstaller
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from utils import WaitTilAvaliable, FilterPath
 import downloader
-# chromedriver_autoinstaller.install()
 
 from time import sleep
 # import fitz
@@ -46,7 +44,7 @@ def _DownloadVolume(url: str) -> None:
     horizon_button = WaitTilAvaliable(driver, By.CSS_SELECTOR, horizontal_path)
     horizon_button.click()
 
-    # Change quaality settings
+    # Change quality settings
     settings_btn = driver.find_element(By.CSS_SELECTOR, value=settings_button_path)
     settings_btn.click()
 
